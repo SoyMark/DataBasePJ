@@ -5,7 +5,7 @@ import (
 	"strconv"
 )
 
-func update_make(new pokemon_info)string{
+func update_make(new Pokemon_info)string{
 	str:="update pokemon\n" + "set "
 	str+="pokemon_name=" + "'" + new.Name + "', "
 	str+="property=" + "'" + new.Property1 + "', "
@@ -24,7 +24,7 @@ func update_make(new pokemon_info)string{
 }
 
 //如果有这个宝可梦就更新信息，没有就加入这个宝可梦
-func pokemon_update(new pokemon_info) int{
+func pokemon_update(new Pokemon_info) int{
 	str := "select pokemon_id from pokemon where pokemon_id='" + new.Id + "';"
 	rows, err := db.Query(str)
 	checkErr(err)
@@ -52,8 +52,8 @@ func pokemon_update(new pokemon_info) int{
 	}
 }
 
-func make_pokemon_info(id string, name string, property1 string, property2 string, attack int, special_attack int, defense int, special_defense int, health int,speed int) pokemon_info{
-	var info pokemon_info
+func make_pokemon_info(id string, name string, property1 string, property2 string, attack int, special_attack int, defense int, special_defense int, health int,speed int) Pokemon_info{
+	var info Pokemon_info
 	info.Id = id
 	info.Name = name
 	info.Property1 = property1

@@ -5,7 +5,7 @@ import (
 	"strconv"
 )
 
-func pokemon_insert_make(info pokemon_info) string{
+func pokemon_insert_make(info Pokemon_info) string{
 	str:="insert into pokemon values("
 	str+="'" + info.Id + "', "
 	str+="'" + info.Name + "', "
@@ -23,7 +23,7 @@ func pokemon_insert_make(info pokemon_info) string{
 	return str
 }
 
-func pokemon_insert(info pokemon_info) int{
+func pokemon_insert(info Pokemon_info) int{
 	str:=pokemon_insert_make(info)
 	rows,err:=db.Query(str)
 	checkErr(err)

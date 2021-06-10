@@ -1,6 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="VcsDirectoryMappings">
+    <mapping directory="$PROJECT_DIR$" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/0610/github.com/gin-contrib/sse" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/0610/github.com/gin-gonic/gin" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/0610/github.com/lib/pq" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/0610/gopkg.in/yaml.v2" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/src/github.com/gin-contrib/sse" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/src/github.com/gin-gonic/gin" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/src/github.com/go-playground/validator" vcs="Git" />

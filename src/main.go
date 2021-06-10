@@ -2,8 +2,12 @@ package main
 
 import (
 	"database/sql"
+	"fmt"
+	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
 	_ "github.com/lib/pq"
+	// "strings"
+	// "net/http"
 )
 
 var db *sql.DB = nil
@@ -15,7 +19,19 @@ func checkErr(err error) {
 	}
 }
 
-func login(user struct_login, dbname string) error{
+func temp_select(id string) string {
+	rows, err := db.Query("select pokemon_name from pokemon where pokemon_id = '" + id + "';")
+	checkErr(err)
+	var name *string
+	name = new(string)
+	for rows.Next() {
+		err = rows.Scan(&name)
+	}
+	defer rows.Close()
+	return *name
+}
+
+func login(user Struct_login, dbname string) error{
 	var str string
 	str = "user=" + user.Id + " password=" + user.Password + " dbname=" + dbname + " sslmode=disable"
 	db, err = sql.Open("postgres", str)
@@ -28,25 +44,35 @@ func login(user struct_login, dbname string) error{
 	}*/
 }
 
+func handler(c *gin.Context) {
+	id := c.PostForm("pokemon_id")
+	fmt.Println(id)
+	name := temp_select(id)
+	c.JSON(200, gin.H{
+		"pokemon_name": name,
+	})
+}
 
-func logout(db *sql.DB) int{
+func logout(db *sql.DB) int {
 	db.Close()
 	return 0
 }
 
-func main(){
+	
+func main() {
 	/*var user struct_login
 	user.Name = "postgres"
-	user.Password = "1907"
-	login(user, "DataBasePJ")*/
+	user.Password = "1908"
+	db = login(user, "DataBasePJ")*/
 	router := gin.Default()
-	router.POST("/select",select_handler)
-	router.POST("/insert",insert_handler)
-	router.POST("/delete",delete_handler)
-	router.POST("/update",update_handler)
-	router.POST("/create_role",create_role_handler)
-	router.POST("/login",login_handler)
-	router.POST("/user_free",user_free_handler)
+	router.Use(cors.Default())
+	router.POST("/select", Select_handler)
+	router.POST("/insert", Insert_handler)
+	router.POST("/delete", Delete_handler)
+	router.POST("/update", Update_handler)
+	router.POST("/create_role", Create_role_handler)
+	router.POST("/login", Login_handler)
+	router.POST("/user_free",User_free_handler)
 	router.Run()
 	/*var user2 struct_login
 	user2.name = "syl"

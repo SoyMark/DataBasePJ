@@ -35,6 +35,8 @@ func get_skills_info(id string) [4]Skill_info {
 func get_skills_details(name string) Skill_info {
 	rows, _ := db.Query("select* from skill where skill_name = '" + name + "';")
 	var s Skill_info
+	s.Effect_id = make([]int, 5)
+	s.Effect_result = make([]int, 5)
 	for rows.Next() {
 		rows.Scan(&s.Skill_name, &s.Skill_type, &s.Attack_type, &s.Attack_power,
 			&s.Self_damage, &s.Attribute, &s.Effect_id, &s.Effect_result)

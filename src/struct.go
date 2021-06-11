@@ -31,14 +31,14 @@ type User_info struct {
 }
 
 type Skill_info struct {
-	Skill_name    string
-	Attribute     string
-	Skill_type    int
-	Attack_type   string
-	Attack_power  int
-	Effect_id     string
-	Effect_result int
-	Self_damage   int
+	Skill_name    string `json:"skill_name"`
+	Skill_type    int    `json:"skill_type"`
+	Attack_type   string `json:"attack_type"`
+	Attack_power  int    `json:"attack_power"`
+	Self_damage   int    `json:"self_damage"`
+	Attribute     string `json:"attribute"`
+	Effect_id     []int  `json:"effect_id"`
+	Effect_result []int  `json:"effect_result"`
 }
 
 type User_price struct {

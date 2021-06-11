@@ -1,7 +1,5 @@
 package main
 
-import "database/sql"
-
 func get_skill(id string) [4]string {
 	str := "select skill1, skill2, skill3, skill4 from pokemon_skill where pokemon_id= '" + id + "';"
 	rows := db.QueryRow(str)
@@ -11,6 +9,7 @@ func get_skill(id string) [4]string {
 	return skills
 }
 
+/*
 func get_skill_info(skill_name string) Skill_info {
 	str := "select skill_name, skill_type from skill where skill_name = '" + skill_name + "';"
 	var info Skill_info
@@ -28,4 +27,4 @@ func get_skill_info(skill_name string) Skill_info {
 			&nil, &nil, &info.effect_id, &info.effect_result)
 	}
 	return info
-}
+}*/

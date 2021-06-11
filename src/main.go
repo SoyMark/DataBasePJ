@@ -79,6 +79,7 @@ func main() {
 	router.POST("/buy", Buy_pokeball_handler)
 	router.POST("/catch", Catch_handler)
 	router.POST("/award", Award_handler)
+	router.POST("/fight", Fight_handler)
 	//info := make_user_info("ssyl","hahah","123",1,1,1,1,1,1)
 	//create_role(info)
 	router.Run()

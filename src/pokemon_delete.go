@@ -19,6 +19,7 @@ func pokemon_delete(id string) int {
 func user_pokemon_delete(userid string, id string, catch_time string) error {
 	str := "delete from " + userid + "_warehouse " + "where pokemon_id = '" +
 		id + "' and catch_time = '" + catch_time + "';"
+	fmt.Println(str)
 	_, err := db.Query(str)
 	checkErr(err)
 	return err

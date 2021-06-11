@@ -37,7 +37,8 @@ func create_role(user User_info) error {
 	str += "connection limit -1\n"
 	str += "password '" + user.Password + "';"
 	rows, err := db.Query(str)
-	if rows == nil {} // rows没用到会报错，所以加一行
+	if rows == nil {
+	} // rows没用到会报错，所以加一行
 	checkErr(err)
 	if err == nil {
 		//在创建用户的时候为用户新建一个仓库
@@ -50,7 +51,7 @@ func create_role(user User_info) error {
 		_, err = db.Query(sentence)
 		//创建用户的backpack
 		sentence3 := "create table " + user.Id + "_backpack (\n"
-		sentence3 +="pokemon_id varchar(20),\n catch_time timestamp,\n " +
+		sentence3 += "pokemon_id varchar(20),\n catch_time timestamp,\n " +
 			"primary key(pokemon_id,catch_time)," +
 			"\n\tforeign key(pokemon_id,catch_time) references " + user.Id + "_warehouse(pokemon_id,catch_time));"
 		_, err = db.Query(sentence3)
@@ -65,23 +66,26 @@ func create_role(user User_info) error {
 		sentence5 += "insert into " + user.Id + "_ballpack values(4, 0);"
 		_, err = db.Query(sentence5)
 		//在用户信息中加入新用户
-		sentence1 := "insert into User_info values('" + user.Name + "', now(), 1000, '"+user.Id+"');\n"
+		sentence1 := "insert into User_info values('" + user.Name + "', now(), 1000, '" + user.Id + "');\n"
 		_, err = db.Query(sentence1)
 		//设置两个背包和仓库表的所有者为用户
 		sentence2 := "ALTER TABLE " + user.Id + "_warehouse\n	OWNER to " + user.Id + ";\n"
 		sentence2 += "alter table " + user.Id + "_backpack\n owner to " + user.Id + ";\n"
 		sentence2 += "alter table " + user.Id + "_ballpack\n owner to " + user.Id + ";"
 		_, err := db.Query(sentence2)
+
 		fmt.Println(" create a role successfully")
 		return err
 	} else {
 		fmt.Println("fail to create a role")
 		return err
 	}
+
 }
 
-func make_user_info(name string, password string, login int, superuser int, createdb int, createrole int, inherit int, replication int) User_info {
+func make_user_info(id string, name string, password string, login int, superuser int, createdb int, createrole int, inherit int, replication int) User_info {
 	var a User_info
+	a.Id = id
 	a.Name = name
 	a.Login = login
 	a.Superuser = superuser

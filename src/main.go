@@ -10,8 +10,9 @@ import (
 	// "net/http"
 )
 
-var db *sql.DB = nil
+var db *sql.DB
 var err error
+var user Struct_login
 
 func checkErr(err error) {
 	if err != nil {
@@ -31,12 +32,12 @@ func temp_select(id string) string {
 	return *name
 }
 
-func login(user Struct_login, dbname string) error{
+func login(user Struct_login, dbname string) (*sql.DB, error) {
 	var str string
 	str = "user=" + user.Id + " password=" + user.Password + " dbname=" + dbname + " sslmode=disable"
 	db, err = sql.Open("postgres", str)
 	err = db.Ping()
-	return err
+	return db, err
 	/*if err==nil{
 		return 1
 	}else {
@@ -58,12 +59,11 @@ func logout(db *sql.DB) int {
 	return 0
 }
 
-	
 func main() {
-	/*var user struct_login
-	user.Name = "postgres"
-	user.Password = "1908"
-	db = login(user, "DataBasePJ")*/
+	//var user Struct_login
+	//user.Id = "postgres"
+	//user.Password = "1908"
+	//err = login(user, "DataBasePJ")
 	router := gin.Default()
 	router.Use(cors.Default())
 	router.POST("/select", Select_handler)
@@ -72,7 +72,15 @@ func main() {
 	router.POST("/update", Update_handler)
 	router.POST("/create_role", Create_role_handler)
 	router.POST("/login", Login_handler)
-	router.POST("/user_free",User_free_handler)
+	router.POST("/user_free", Poke_free_handler)
+	router.POST("/takein", Takein_handler)
+	router.GET("/warehouse", Warehouse_handler)
+	router.POST("/takeout", Takeout_handler)
+	router.POST("/buy", Buy_pokeball_handler)
+	router.POST("/catch", Catch_handler)
+	router.POST("/award", Award_handler)
+	//info := make_user_info("ssyl","hahah","123",1,1,1,1,1,1)
+	//create_role(info)
 	router.Run()
 	/*var user2 struct_login
 	user2.name = "syl"

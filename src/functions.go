@@ -12,3 +12,32 @@ func pokemon_details(id string) Pokemon_info {
 	}
 	return info
 }
+
+func get_skills_info(id string) [4]Skill_info {
+	var s1 string
+	var s2 string
+	var s3 string
+	var s4 string
+	str := "select* from pokemon_skill where pokemon_id = '" + id + "';"
+	rows, _ := db.Query(str)
+	var useless string
+	for rows.Next() {
+		rows.Scan(&useless, &s1, &s2, &s3, &s4)
+	}
+	var ret [4]Skill_info
+	ret[0] = get_skills_details(s1)
+	ret[1] = get_skills_details(s2)
+	ret[2] = get_skills_details(s3)
+	ret[3] = get_skills_details(s4)
+	return ret
+}
+
+func get_skills_details(name string) Skill_info {
+	rows, _ := db.Query("select* from skill where skill_name = '" + name + "';")
+	var s Skill_info
+	for rows.Next() {
+		rows.Scan(&s.Skill_name, &s.Skill_type, &s.Attack_type, &s.Attack_power,
+			&s.Self_damage, &s.Attribute, &s.Effect_id, &s.Effect_result)
+	}
+	return s
+}

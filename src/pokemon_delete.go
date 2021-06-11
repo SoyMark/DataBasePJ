@@ -2,28 +2,24 @@ package main
 
 import "fmt"
 
-
-func pokemon_delete(id string) int{
-	str:="delete from pokemon where pokemon_id = '" + id +"';"
+func pokemon_delete(id string) int {
+	str := "delete from pokemon where pokemon_id = '" + id + "';"
 	fmt.Println(str)
 	rows, err := db.Query(str)
-	if rows==nil {}
+	if rows == nil {
+	}
 	checkErr(err)
-	if err==nil {
+	if err == nil {
 		return 1
-	}else{
+	} else {
 		return 0
 	}
 }
 
-func user_pokemon_delete(username string, id string){
-	str:="delete from " + username + "_warehouse " + "where pokemon_id = '" + id + "';"
-	rows, err := db.Query(str)
+func user_pokemon_delete(userid string, id string, catch_time string) error {
+	str := "delete from " + userid + "_warehouse " + "where pokemon_id = '" +
+		id + "' and catch_time = '" + catch_time + "';"
+	_, err := db.Query(str)
 	checkErr(err)
-	if err==nil {
-		fmt.Println("delete successfully!")
-	}else{
-		fmt.Println("fail to delete")
-	}
-	if rows==nil {}
+	return err
 }
